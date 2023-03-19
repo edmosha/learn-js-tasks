@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+
+<body>
+<div id="calendar"></div>
+<script>
+  // Напишите функцию createCalendar(elem, year, month).
+  // Вызов функции должен создать календарь для заданного месяца month в году year и вставить его в elem.
+  //
+  // Календарь должен быть таблицей, где неделя – это <tr>, а день – это <td>.
+  // У таблицы должен быть заголовок с названиями дней недели, каждый день – <th>,
+  // первым днём недели должен быть понедельник.
+
+  const calendar = document.querySelector('#calendar');
+
+  function getCorrectDay(date) {
+    return date.getDay() !== 0 ? date.getDay() : 7;
+  }
+  function createCalendar(elem, year, month) {
+    let date = new Date(year, month - 1);
+    let table =
+      `<table>
+					<tr>
+						<th>пн</th>
+						<th>вт</th>
+						<th>ср</th>
+						<th>чт</th>
+						<th>пт</th>
+						<th>сб</th>
+						<th>вс</th>
+					</tr>
+					<tr>`;
+
+    for (let i = 1; i < getCorrectDay(date); i++) {
+      table += '<td> </td>'
+    }
+
+    while (date.getMonth() === month - 1) {
+      table += `<td> ${date.getDate()} </td>`
+
+      if (getCorrectDay(date) % 7 === 0) {
+        table += '<tr></tr>'
+      }
+      date.setDate(date.getDate() + 1);
+    }
+
+    if (getCorrectDay(date) !== 1) {
+      for (let i = getCorrectDay(date); i <= 7; i++) {
+        table += '<td></td>'
+      }
+    }
+    table += '</tr></table>'
+
+    elem.innerHTML = table;
+  }
+  createCalendar(calendar, 2012, 4);
+</script>
+</body>
+</html>

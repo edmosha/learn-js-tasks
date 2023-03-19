@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+  <select id="genres">
+    <option value="rock">Рок</option>
+    <option value="blues" selected>Блюз</option>
+  </select>
+
+  <script>
+    let genres = document.getElementById('genres');
+
+    let selectedOption = genres.options[genres.selectedIndex];
+    alert( selectedOption.value );
+    alert( selectedOption.text );
+
+    let newOption = new Option("Классика", "classic");
+    genres.append(newOption);
+
+    newOption.selected = true;
+  </script>
+</body>
+</html>
